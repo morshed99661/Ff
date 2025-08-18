@@ -1,0 +1,133 @@
+<b:section id='main' class='main' maxwidgets='1' showaddelement='yes'>
+  <b:widget id='MiniApp1' type='HTML' visible='true'>
+    <b:widget-settings>
+      <b:widget-setting name='content'>
+        <![CDATA[
+
+<!-- ============================ -->
+<!-- Story App + Telegram Mini App -->
+<!-- ============================ -->
+
+<div id="miniapp">
+
+  <!-- Header -->
+  <header>📖 আমার গল্পের অ্যাপ</header>
+
+  <!-- Story List -->
+  <div class="story-list" id="storyList">
+    <div class="story-item" onclick="openStory('story1')">
+      <img src="https://i.postimg.cc/Hn80Td6S/images.jpg" alt="গল্প ১" class="story-thumb">
+      <span>গল্প ১: ভয়ানক সেই রাত</span>
+    </div>
+    <div class="story-item" onclick="openStory('story2')">
+      <img src="https://i.postimg.cc/Hn80Td6S/images.jpg" alt="গল্প ২" class="story-thumb">
+      <span>গল্প ২: সত্যের জয়</span>
+    </div>
+    <div class="story-item" onclick="openStory('story3')">
+      <img src="https://i.postimg.cc/Hn80Td6S/images.jpg" alt="গল্প ৩" class="story-thumb">
+      <span>গল্প ৩: সোনার হাঁস</span>
+    </div>
+  </div>
+
+  <!-- Story Pages -->
+  <div class="story-page" id="story1">
+    <div class="back-btn" onclick="goBack()">⬅ ফিরে যান</div>
+    <h2>গল্প ১: ভয়ানক সেই রাত</h2>
+    <p>অবিনাশ যখন দমদম বিমানবন্দরে নামে তখন রাত হয়ে গেছে... [আপনার পুরো গল্প এখানে থাকবে]</p>
+  </div>
+
+  <div class="story-page" id="story2">
+    <div class="back-btn" onclick="goBack()">⬅ ফিরে যান</div>
+    <h2>গল্প ২: সত্যের জয়</h2>
+    <p>মিথ্যা যতই ছড়াক না কেন, শেষে সত্যের জয় হয়। একদিন গ্রামের এক লোক...</p>
+  </div>
+
+  <div class="story-page" id="story3">
+    <div class="back-btn" onclick="goBack()">⬅ ফিরে যান</div>
+    <h2>গল্প ৩: সোনার হাঁস</h2>
+    <p>এক কৃষক প্রতিদিন একটি সোনার ডিম পাওয়া শুরু করল। কিন্তু লোভে পড়ে...</p>
+  </div>
+
+  <!-- Telegram Mini App -->
+  <h2>🚀 Telegram Mini App</h2>
+  <p id="user">Loading...</p>
+  <button onclick="sendData()">Send Data</button>
+
+</div>
+
+<style>
+  body {
+    font-family: kalpurush, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+  }
+  header {
+    background: #4a148c;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    position: sticky;
+    top: 0;
+  }
+  .story-list {
+    padding: 15px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  .story-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .story-item:hover { background: #ede7f6; }
+  .story-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; margin-right: 15px; }
+  .story-page { display: none; padding: 20px; }
+  .back-btn {
+    display: inline-block; margin-bottom: 15px; padding: 8px 12px;
+    background: #4a148c; color: white; border-radius: 5px; cursor: pointer;
+  }
+  h2 { font-size: 18px; }
+  p { font-size: 16px; line-height: 1.5; }
+</style>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  // Story App JS
+  function openStory(storyId) {
+    document.getElementById("storyList").style.display = "none";
+    document.querySelectorAll(".story-page").forEach(s => s.style.display = "none");
+    document.getElementById(storyId).style.display = "block";
+  }
+  function goBack() {
+    document.getElementById("storyList").style.display = "block";
+    document.querySelectorAll(".story-page").forEach(s => s.style.display = "none");
+  }
+
+  // Telegram Mini App JS
+  let tg = window.Telegram.WebApp;
+  tg.expand();
+
+  if(tg.initDataUnsafe.user) {
+    document.getElementById("user").innerText = "Hello, " + tg.initDataUnsafe.user.first_name;
+  } else {
+    document.getElementById("user").innerText = "Open inside Telegram";
+  }
+
+  function sendData() {
+    tg.sendData("✅ User clicked the button!");
+  }
+</script>
+
+        ]]>
+      </b:widget-setting>
+    </b:widget-settings>
+  </b:widget>
+</b:section>
